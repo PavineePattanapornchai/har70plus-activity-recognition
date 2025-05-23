@@ -8,24 +8,39 @@ def segment_signal(df, window_size):
     segments = []
     labels = []
     subject_ids = []
+
     for subject_id, subject_df in df.groupby("subject_id"):
         for start in range(0, len(subject_df), window_size):
             end = start + window_size
             segment = subject_df.iloc[start:end]
             if len(segment) == window_size:
-                segments.append(segment.drop(columns=["activity", "subject_id"]).values)
-                labels.append(Counter(segment["activity"]).most_common(1)[0][0])
+                segments.append(segment[["ax", "ay", "az", "gx", "gy", "gz"]].values)
+                labels.append(Counter(segment["label"]).most_common(1)[0][0])
                 subject_ids.append(subject_id)
+
     return segments, labels, subject_ids
 
 def preprocess_and_save(window_size, input_dir, output_path):
     print(f"Reading data from {input_dir}...")
     all_files = glob.glob(os.path.join(input_dir, "*.csv"))
+
+    if not all_files:
+        print("⚠️ No CSV files found. Please add HAR70+ CSVs to 'data/raw/har70plus/'.")
+        return
+
     data = []
     for file in all_files:
         df = pd.read_csv(file)
+
+        # ✅ Rename columns to match Colab structure
+        df = df.rename(columns={
+            "back_x": "ax", "back_y": "ay", "back_z": "az",
+            "thigh_x": "gx", "thigh_y": "gy", "thigh_z": "gz"
+        })
+
         df["subject_id"] = os.path.basename(file).split(".")[0]
         data.append(df)
+
     df_all = pd.concat(data, ignore_index=True)
 
     print(f"Segmenting with window size {window_size} samples...")
@@ -39,7 +54,7 @@ def preprocess_and_save(window_size, input_dir, output_path):
     })
 
     output_df.to_pickle(output_path)
-    print("Done.")
+    print("✅ Done.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Preprocess HAR70+ dataset")
