@@ -1,3 +1,4 @@
+# Triggering GitHub Actions workflow
 import numpy as np
 import pandas as pd
 import argparse
@@ -63,7 +64,7 @@ def train_model(name, model, X_train, X_test, y_train, y_test, class_weights):
 
     with open(f"models/{name.lower()}_model.json", "w") as json_file:
         json_file.write(model.to_json())
-        
+
     y_pred = model.predict(X_test)
     y_pred_classes = np.argmax(y_pred, axis=1)
     y_true = np.argmax(y_test, axis=1)
