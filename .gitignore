@@ -5,7 +5,8 @@ venv/
 data/processed/
 
 # Ignore trained models
-models/
+models/*.h5
+!models/*.json
 
 # Ignore Python cache files
 __pycache__/
