@@ -28,7 +28,7 @@ jobs:
         run: python scripts/preprocess.py --window 250
 
       - name: Upload processed data as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: segmented-data
           path: data/processed/
