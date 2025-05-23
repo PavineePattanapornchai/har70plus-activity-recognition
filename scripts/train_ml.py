@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import json
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.neighbors import KNeighborsClassifier
@@ -38,12 +39,20 @@ def train_models(X_train, X_test, y_train, y_test):
         "XGBoost": XGBClassifier(use_label_encoder=False, eval_metric="mlogloss")
     }
 
+    results = {}
+
     for name, model in models.items():
         model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
         acc = accuracy_score(y_test, y_pred)
         f1 = f1_score(y_test, y_pred, average="macro")
+        results[name] = {"Accuracy": round(acc, 4), "F1": round(f1, 4)}
         print(f"{name}: Accuracy = {acc:.4f}, Macro F1 = {f1:.4f}")
+
+    # ✅ Save results to JSON
+    with open("results_ml.json", "w") as f:
+        json.dump(results, f, indent=2)
+    print("✅ Saved results to results_ml.json")
 
 # 🧠 Main script entry point
 if __name__ == "__main__":

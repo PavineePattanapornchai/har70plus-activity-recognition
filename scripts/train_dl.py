@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 import argparse
+import json
+import os
 import tensorflow as tf
 from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.layers import (
@@ -62,6 +64,7 @@ def train_model(name, model, X_train, X_test, y_train, y_test, class_weights):
     acc = accuracy_score(y_true, y_pred_classes)
     f1 = f1_score(y_true, y_pred_classes, average="macro")
     print(f"{name}: Accuracy = {acc:.4f}, Macro F1 = {f1:.4f}")
+    return model, acc, f1
 
 # Main script
 if __name__ == "__main__":
@@ -87,14 +90,30 @@ if __name__ == "__main__":
     input_shape = X_train.shape[1:]
     num_classes = y.shape[1]
 
+    # Create models folder if it doesn't exist
+    os.makedirs("models", exist_ok=True)
+
+    results = {}
+
     print("Training CNN...")
     cnn = build_cnn(input_shape, num_classes)
-    train_model("CNN", cnn, X_train, X_test, y_train, y_test, class_weights)
+    cnn, acc, f1 = train_model("CNN", cnn, X_train, X_test, y_train, y_test, class_weights)
+    cnn.save("models/cnn_model.h5")
+    results["CNN"] = {"Accuracy": round(acc, 4), "F1": round(f1, 4)}
 
     print("Training LSTM...")
     lstm = build_lstm(input_shape, num_classes)
-    train_model("LSTM", lstm, X_train, X_test, y_train, y_test, class_weights)
+    lstm, acc, f1 = train_model("LSTM", lstm, X_train, X_test, y_train, y_test, class_weights)
+    lstm.save("models/lstm_model.h5")
+    results["LSTM"] = {"Accuracy": round(acc, 4), "F1": round(f1, 4)}
 
     print("Training MRCNN...")
     mrcnn = build_mrcnn(input_shape, num_classes)
-    train_model("MRCNN", mrcnn, X_train, X_test, y_train, y_test, class_weights)
+    mrcnn, acc, f1 = train_model("MRCNN", mrcnn, X_train, X_test, y_train, y_test, class_weights)
+    mrcnn.save("models/mrcnn_model.h5")
+    results["MRCNN"] = {"Accuracy": round(acc, 4), "F1": round(f1, 4)}
+
+    # Save results to JSON
+    with open("results_dl.json", "w") as f:
+        json.dump(results, f, indent=2)
+    print("✅ Saved DL results to results_dl.json")
