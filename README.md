@@ -1,110 +1,106 @@
-# Human Activity Recognition with HAR70+ Dataset
+# HAR70+ Activity Recognition
 
-This repository contains the complete source code and training pipelines for a Human Activity Recognition (HAR) system using the HAR70+ dataset. The system implements both traditional machine learning and deep learning models, structured in a modular and MLOps-aligned architecture using Python and GitHub Actions.
+This project applies Machine Learning (ML) and Deep Learning (DL) techniques to the **HAR70+ dataset**, which contains dual accelerometer data from older adults performing daily activities. It showcases the development of an end-to-end human activity classification pipeline, including preprocessing, model training, evaluation, and reproducibility through GitHub Actions.
 
-## Project Overview
+## Project Context
 
-This project was completed as a **senior/final-year project** by a **4th-year Digital Engineering student** at the **Sirindhorn International Institute of Technology (SIIT), Thammasat University**.
+This repository is the **final senior project** of a 4th-year student in Digital Engineering at SIIT, Thammasat University. It demonstrates applied engineering, real-world data handling, and ML workflow automation for deployment-ready environments. The project was designed to reflect strong ownership and technical depth in data processing and model development.
 
-The objective was to develop a robust and reproducible pipeline for recognizing human activities using wearable sensor data collected from older adults. The project reflects a capstone-level challenge integrating data preprocessing, model development, evaluation, and automation.
+## Dataset Overview
 
-## Features
+- **Dataset**: HAR70+ from the UCI Machine Learning Repository  
+- **Subjects**: 18 older adults (aged 70–95)  
+- **Sensors**: Two tri-axial accelerometers (lower back & thigh)  
+- **Sampling Rate**: 50Hz  
+- **Activities**:  
+  - Walking  
+  - Shuffling  
+  - Stairs Ascending  
+  - Stairs Descending  
+  - Standing  
+  - Sitting  
+  - Lying  
 
-- Statistical feature extraction for machine learning models
-- CNN, LSTM, and Multi-Resolution CNN (MRCNN) deep learning architectures
-- Class imbalance handling with weighted loss functions
-- Model evaluation using Accuracy and Macro F1-score
-- Model serialization (.h5 weights and .json architectures)
-- GitHub Actions workflows for CI/CD automation
-- Structured directory for reproducible experimentation
+## Technical Stack
 
-## Technologies Used
+- **Programming**: Python 3.10  
+- **ML Libraries**: scikit-learn, XGBoost  
+- **DL Libraries**: TensorFlow, Keras  
+- **Automation**: GitHub Actions (CI/CD pipelines)  
 
-- Python 3.10
-- Scikit-learn
-- XGBoost
-- TensorFlow / Keras
-- GitHub Actions (CI/CD)
-- Pandas, NumPy
-
-## Folder Structure
+## Project Structure
 
 ```
-har70plus-activity-recognition/
 ├── data/
-│   ├── raw/                      # Raw HAR70+ CSV files
-│   └── processed/                # Preprocessed .pkl files (excluded from repo)
-├── models/                       # Exported model weights (.h5) and architecture (.json)
-│   ├── cnn_model.h5/.json
-│   ├── lstm_model.h5/.json
-│   └── mrcnn_model.h5/.json
+│   ├── raw/                   # Raw CSV sensor data (excluded from repo)
+│   └── processed/             # Processed .pkl files (excluded from repo)
+├── models/
+│   ├── cnn_model.h5/.json     # CNN model weights & architecture
+│   ├── lstm_model.h5/.json    # LSTM model weights & architecture
+│   ├── mrcnn_model.h5/.json   # Multi-resolution CNN weights & architecture
 ├── scripts/
-│   ├── preprocess.py             # Segment and save data
-│   ├── train_ml.py               # Train ML models
-│   └── train_dl.py               # Train DL models
-├── .github/
-│   └── workflows/
-│       ├── train_ml.yml          # ML GitHub Actions workflow
-│       └── train_dl.yml          # DL GitHub Actions workflow
-├── results_ml.json               # Accuracy and F1-score for ML models
-├── results_dl.json               # Accuracy and F1-score for DL models
-├── requirements.txt
-├── .gitignore
+│   ├── preprocess.py          # Segments and processes raw data
+│   ├── train_ml.py            # Trains ML models (KNN, SVM, RF, XGB)
+│   ├── train_dl.py            # Trains DL models (CNN, LSTM, MRCNN)
+├── .github/workflows/
+│   ├── preprocess.yml         # GitHub Action for data preprocessing
+│   ├── train_ml.yml           # GitHub Action for ML training
+│   ├── train_dl.yml           # GitHub Action for DL training
+├── results/
+│   ├── results_ml.json        # Saved metrics from ML runs
+│   └── results_dl.json        # Saved metrics from DL runs
 └── README.md
 ```
 
-## Results Summary
+## Key Features
 
-| Model        | Accuracy | Macro F1 |
-|--------------|----------|-----------|
-| KNN          | 0.69     | 0.33      |
-| SVM          | 0.59     | 0.22      |
-| RandomForest | 0.92     | 0.52      |
-| XGBoost      | 0.92     | 0.53      |
-| CNN          | 0.93     | 0.56      |
-| LSTM         | 0.41     | 0.32      |
-| MRCNN        | 0.90     | 0.54      |
+- **Preprocessing**: Window segmentation (500 samples), statistical feature extraction for ML
+- **ML Models**: KNN, SVM, Random Forest, XGBoost (feature-based)
+- **DL Models**: CNN, LSTM, MRCNN (sequence-based with class weighting)
+- **Model Persistence**: `.h5` for weights, `.json` for architecture
+- **Results Logging**: JSON logs for reproducibility
+- **CI/CD**: Automated testing of workflows using GitHub Actions
 
-## How to Run
+## How to Use
 
-```bash
-# Clone the repository
-git clone https://github.com/PavineePattanapornchai/har70plus-activity-recognition.git
-cd har70plus-activity-recognition
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/PavineePattanapornchai/har70plus-activity-recognition.git
+   cd har70plus-activity-recognition
+   ```
 
-# Install dependencies
-pip install -r requirements.txt
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # or venv\Scripts\activate (Windows)
+   pip install -r requirements.txt
+   ```
 
-# Preprocess the data
-python scripts/preprocess.py --window 500
+3. Add the raw dataset to `data/raw/`, then run preprocessing:
+   ```bash
+   python scripts/preprocess.py --window 500
+   ```
 
-# Train ML models
-python scripts/train_ml.py --input data/processed/har70plus_500s.pkl
+4. Train models:
+   ```bash
+   python scripts/train_ml.py --input data/processed/har70plus_500s.pkl
+   python scripts/train_dl.py --input data/processed/har70plus_500s.pkl
+   ```
 
-# Train DL models
-python scripts/train_dl.py --input data/processed/har70plus_500s.pkl
-```
+## Citation
 
-## GitHub Actions Automation
+Dataset and concept from:
 
-This repo includes two GitHub Actions workflows for verifying pipelines:
+- A. Logacjov and A. Ustad. "HAR70+," *UCI Machine Learning Repository*, [https://doi.org/10.24432/C5CW3D](https://doi.org/10.24432/C5CW3D)
+- Original implementation reference: [NTNU HARTH GitHub Repository](https://github.com/ntnu-ai-lab/harth-ml-experiments)
 
-- `.github/workflows/train_ml.yml`: ML training environment setup
-- `.github/workflows/train_dl.yml`: DL training setup and simulation
+## Author
 
-These workflows validate that training environments are functional and follow automation best practices.
-
-## Citations & Acknowledgements
-
-**Dataset**:  
-A. Logacjov and A. Ustad. *HAR70+*, UCI Machine Learning Repository.  
-Available: https://doi.org/10.24432/C5CW3D
-
-**Reference Implementation**:  
-NTNU AI Lab — HARTH Experiments:  
-https://github.com/ntnu-ai-lab/harth-ml-experiments
+**Pavinee Pattanapornchai**  
+Student ID: 6422782266  
+Digital Engineering, Sirindhorn International Institute of Technology (SIIT), Thammasat University  
+GitHub: [@PavineePattanapornchai](https://github.com/PavineePattanapornchai)
 
 ## License
 
-This project is licensed under the MIT License.  
-For academic and educational use only.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
