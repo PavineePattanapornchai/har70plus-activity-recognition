@@ -47,6 +47,7 @@ def preprocess_and_save(window_size, input_dir, output_path):
     segments, labels, subject_ids = segment_signal(df_all, window_size)
 
     print(f"Saving segmented data to {output_path}...")
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
     output_df = pd.DataFrame({
         "subject_id": subject_ids,
         "label": labels,
