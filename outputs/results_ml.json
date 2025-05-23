@@ -1,0 +1,18 @@
+{
+  "KNN": {
+    "Accuracy": 0.6988,
+    "F1": 0.3337
+  },
+  "SVM": {
+    "Accuracy": 0.5903,
+    "F1": 0.2216
+  },
+  "RandomForest": {
+    "Accuracy": 0.9203,
+    "F1": 0.5252
+  },
+  "XGBoost": {
+    "Accuracy": 0.9247,
+    "F1": 0.5312
+  }
+}
