@@ -28,7 +28,3 @@ jobs:
       run: |
         echo "Skipping actual training because input .pkl is not available."
         echo "This verifies the pipeline and setup are working."
-
-    # 👉 When ready to run real training, replace the above block with:
-    # - name: 🚀 Run train_dl.py
-    #   run: python scripts/train_dl.py --input data/processed/har70plus_500s.pkl
