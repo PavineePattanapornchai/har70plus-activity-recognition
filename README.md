@@ -23,10 +23,11 @@ This repository is the **final senior project** of a 4th-year student in Digital
 
 ## Technical Stack
 
-- **Programming**: Python 3.10  
-- **ML Libraries**: scikit-learn, XGBoost  
-- **DL Libraries**: TensorFlow, Keras  
-- **Automation**: GitHub Actions (CI/CD pipelines)  
+- **Languages**: Python 3.10, PySpark
+- **ML Libraries**: scikit-learn, XGBoost
+- **DL Libraries**: TensorFlow, Keras
+- **Distributed Processing**: Apache Spark (PySpark for scalable preprocessing pipelines)
+- **Automation/DevOps**: GitHub Actions (CI/CD pipelines)
 
 ## Project Structure
 
