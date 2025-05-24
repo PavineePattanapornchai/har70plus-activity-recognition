@@ -31,6 +31,8 @@ This repository is the **final senior project** of a 4th-year Digital Engineerin
 
 ## Project Structure
 
+```
+
 ├── data/
 │   ├── raw/                   # Raw dataset (excluded from repo)
 │   └── processed/             # Processed .pkl files (excluded from repo)
@@ -52,6 +54,8 @@ This repository is the **final senior project** of a 4th-year Digital Engineerin
 ├── README.md
 └── requirements.txt
 
+````
+
 ## Key Features
 
 - **Preprocessing**: Window segmentation (500 samples) and statistical feature extraction for ML  
@@ -64,28 +68,31 @@ This repository is the **final senior project** of a 4th-year Digital Engineerin
 ## How to Use
 
 1. Clone the repository:
-
+   ```bash
    git clone https://github.com/PavineePattanapornchai/har70plus-activity-recognition.git
    cd har70plus-activity-recognition
+````
 
 2. Create a virtual environment:
 
-
+   ```bash
    python -m venv venv
    source venv/bin/activate  # or venv\Scripts\activate (Windows)
    pip install -r requirements.txt
-
+   ```
 
 3. Add the raw dataset to `data/raw/` (download from UCI ML Repository), then run preprocessing:
 
+   ```bash
    python scripts/preprocess.py --window 500
-
+   ```
 
 4. Train models:
 
+   ```bash
    python scripts/train_ml.py --input data/processed/har70plus_500s.pkl
    python scripts/train_dl.py --input data/processed/har70plus_500s.pkl
-
+   ```
 
 5. Monitor CI/CD:
    Review GitHub Actions workflows under the "Actions" tab to ensure reproducibility and workflow correctness.
