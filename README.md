@@ -32,24 +32,26 @@ This repository is the **final senior project** of a 4th-year Digital Engineerin
 ## Project Structure
 
 ```
-├── data/
-│   ├── raw/                   
-│   └── processed/             
-├── models/
-│   ├── cnn\_model.h5/.json    
-│   ├── lstm\_model.h5/.json    
-│   ├── mrcnn\_model.h5/.json  
-├── outputs/
-│   ├── results\_ml.json        
-│   └── results\_dl.json  
-├── scripts/
-│   ├── preprocess.py         
-│   ├── train\_ml.py            
-│   └── train\_dl.py           
+HAR70PLUS-ACTIVITY-RECOGNITION/
 ├── .github/workflows/
-│   ├── preprocess.yml       
-│   ├── train\_ml.yml           
-│   ├── train\_dl.yml         
+│   ├── preprocess.yml
+│   ├── train_dl.yml
+│   └── train_ml.yml
+├── data/
+│   └── raw/
+│       └── har70plus/               # Raw dataset folder (might include original files)
+├── models/
+│   ├── cnn_model.json
+│   ├── lstm_model.json
+│   └── mrcnn_model.json
+├── outputs/
+│   ├── results_dl.json
+│   └── results_ml.json
+├── scripts/
+│   ├── preprocess.py
+│   ├── train_dl.py
+│   └── train_ml.py
+├── .gitignore
 ├── README.md
 └── requirements.txt
 ````
