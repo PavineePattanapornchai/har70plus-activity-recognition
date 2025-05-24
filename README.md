@@ -39,7 +39,7 @@ HAR70PLUS-ACTIVITY-RECOGNITION/
 │   └── train_ml.yml
 ├── data/
 │   └── raw/
-│       └── har70plus/               # Raw dataset folder (might include original files)
+│       └── har70plus/              
 ├── models/
 │   ├── cnn_model.json
 │   ├── lstm_model.json
