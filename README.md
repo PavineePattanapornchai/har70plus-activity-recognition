@@ -32,28 +32,26 @@ This repository is the **final senior project** of a 4th-year Digital Engineerin
 ## Project Structure
 
 ```
-
 ├── data/
-│   ├── raw/                   # Raw dataset (excluded from repo)
-│   └── processed/             # Processed .pkl files (excluded from repo)
+│   ├── raw/                   
+│   └── processed/             
 ├── models/
-│   ├── cnn\_model.h5/.json     # CNN model weights & architecture
-│   ├── lstm\_model.h5/.json    # LSTM model weights & architecture
-│   ├── mrcnn\_model.h5/.json   # Multi-resolution CNN weights & architecture
+│   ├── cnn\_model.h5/.json    
+│   ├── lstm\_model.h5/.json    
+│   ├── mrcnn\_model.h5/.json  
 ├── outputs/
-│   ├── results\_ml.json        # Saved metrics from ML runs
-│   └── results\_dl.json        # Saved metrics from DL runs
+│   ├── results\_ml.json        
+│   └── results\_dl.json  
 ├── scripts/
-│   ├── preprocess.py          # Segments and processes raw data
-│   ├── train\_ml.py            # Trains ML models (KNN, SVM, RF, XGB)
-│   └── train\_dl.py            # Trains DL models (CNN, LSTM, MRCNN)
+│   ├── preprocess.py         
+│   ├── train\_ml.py            
+│   └── train\_dl.py           
 ├── .github/workflows/
-│   ├── preprocess.yml         # GitHub Action for data preprocessing
-│   ├── train\_ml.yml           # GitHub Action for ML training
-│   ├── train\_dl.yml           # GitHub Action for DL training
+│   ├── preprocess.yml       
+│   ├── train\_ml.yml           
+│   ├── train\_dl.yml         
 ├── README.md
 └── requirements.txt
-
 ````
 
 ## Key Features
