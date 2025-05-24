@@ -71,7 +71,7 @@ This repository is the **final senior project** of a 4th-year Digital Engineerin
    ```bash
    git clone https://github.com/PavineePattanapornchai/har70plus-activity-recognition.git
    cd har70plus-activity-recognition
-````
+   ```
 
 2. Create a virtual environment:
 
