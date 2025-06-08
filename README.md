@@ -108,7 +108,3 @@ HAR70PLUS-ACTIVITY-RECOGNITION/
 Student ID: 6422782266
 Digital Engineering, Sirindhorn International Institute of Technology (SIIT), Thammasat University
 GitHub: [@PavineePattanapornchai](https://github.com/PavineePattanapornchai)
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
